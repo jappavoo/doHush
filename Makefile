@@ -3,10 +3,13 @@ UBOOTREPO=https://gitlab.denx.de/u-boot/u-boot.git
 .phony: clean
 
 
-doHush: main.o u-boot/u-boot.lds
-	cc -Wl,-T u-boot/u-boot.lds -g -Wl,-Map=doHush.map -Wl,--verbose  -o $@ u-boot/common/cli_hush.o  u-boot/cmd/help.o u-boot/common/command.o u-boot/lib/ctype.o main.o u-boot/cmd/echo.o
+doHush:  u-boot/u-boot.lds main.o hello.o
+	cc -Wl,-T u-boot/u-boot.lds -g -Wl,-Map=doHush.map -Wl,--verbose  -o $@ u-boot/common/cli_hush.o  u-boot/cmd/help.o u-boot/common/command.o u-boot/lib/ctype.o u-boot/cmd/echo.o hello.o main.o 
 
 main.o: main.c
+	cc  -I u-boot/include -g -c $?
+
+hello.o: hello.c
 	cc  -I u-boot/include -g -c $?
 
 doHushNoLIBS: main.c u-boot/common/cli_hush.o u-boot/common/command.o u-boot/lib/ctype.o
