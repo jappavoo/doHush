@@ -314,7 +314,7 @@ main(int argc, char **argv)
   int i;
   int rc = start_hush();
   int hush_flags = FLAG_PARSE_SEMICOLON | FLAG_EXIT_FROM_LOOP;
-  rc = parse_string_outer("x=1;", hush_flags);
+  rc = parse_string_outer("x=7", hush_flags);
   printf("rc=%d\n", rc);
   if (argc>1) {
     for (i=1; i<argc; i++) {
