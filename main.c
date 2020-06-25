@@ -8,7 +8,9 @@ typedef long long int size_t;
 void dlfree(void *mem) { return free(mem); }
 void * dlmalloc(size_t bytes) { return malloc(bytes); }
 void * dlrealloc(void *old, size_t bytes) { return realloc(old, bytes); }
-
+void putc(char c) { write(1,&c,1); }
+// u-boot code assumes puts does not add a newline
+int  puts(char *str) { write(1, str, strlen(str)); return 1; }
 #else
 /* memory allocation/deallocation routines */
 void dlfree(void *mem) { return; }
@@ -314,6 +316,7 @@ main(int argc, char **argv)
   int i;
   int rc = start_hush();
   int hush_flags = FLAG_PARSE_SEMICOLON | FLAG_EXIT_FROM_LOOP;
+
   rc = parse_string_outer("x=7", hush_flags);
   printf("rc=%d\n", rc);
   if (argc>1) {

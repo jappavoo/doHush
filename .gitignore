@@ -34,4 +34,5 @@
 u-boot*
 .gdb_history
 *~
-
+doHush
+doHushNoLIBS
